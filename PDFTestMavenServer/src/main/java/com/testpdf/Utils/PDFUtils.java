@@ -1,23 +1,23 @@
 package com.testpdf.Utils;
 
+import com.testpdf.App;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageTree;
-import org.apache.pdfbox.text.PDFTextStripper;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public class PDFUtils {
-    
-    public List<File> listFileForFolder() throws Exception {
-        File folder = new File("G:\\PDFJavaTest\\example_folder");
+    Logger logger = Logger.getLogger(App.class.getName());
+    public List<File> listFileForFolder(String folderPath) throws Exception {
+        File folder = new File(folderPath);
         File [] listOfFiles = folder.listFiles();
         List<File> files = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public class PDFUtils {
         return noBlankList;
    }
 
-   public List<PDDocument> addBlankPage(List<PDDocument> files) throws IOException {
+   public void addBlankPage(List<PDDocument> files) throws IOException {
         List<PDDocument> addedPagesPdfs = new ArrayList<PDDocument>();
         for(PDDocument file : files) {
             PDPage page = new PDPage();
@@ -70,6 +70,5 @@ public class PDFUtils {
             addedPagesPdfs.add(file);
 
         }
-        return addedPagesPdfs;
    }
  }
