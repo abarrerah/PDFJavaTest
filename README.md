@@ -27,13 +27,16 @@
 2. Cambio de nombre. En el caso de cambio de nombre, se tendría que tener una nueva validación o un nuevo atributo en el objeto de JAVA que compruebe los mecanismos del fichero y poder identificar que ese objeto es el correcto. En caso de que ya existiese, se almacenaría en la base de datos con el nuevo nombre. En caso, es que se trata de un nuevo fichero. 
 
 ¿Qué pasa si el directorio contiene un fichero que no es un pdf?
+
 Al tener una primera validación que comprueba el mime type y la extensión, ese fichero con diferente formato no sería tratado ya que la aplicación lo ignoraría en la iteración.
 
 ¿Cómo probar / ejecutar la aplicación?
+
 La forma correcta sería mediante CRON si se va a utilizar en alguna aplicación real. Esto daría que siempre sabríamos que hay en ese fichero y si es correcto, además de no tener que parar y volver a arrancar la aplicación.
 En el caso de este test, está realizado sobre un fichero main y sabiendo del problema comentado, me hubiera gustado haberlo realizado con los mecanismos mencionado.
 
 ¿Cómo podemos ver los logs?
+
 Los logs que creemos con el framework pertinente, dependerá de la configuración que le hayamos dado y como lo queremos visualizar.
 Por poner un ejemplo, si decidimos que sea almacenados en el servidor, habrá una carpeta en el MAVEN o TOMCAT que tenga dicha funcionalidad.
 En el caso de que queremos almacenarlos en una base de datos para poder después crear una vista en donde el desarrollador pueda leer dichos ficheros con mayor facilidad y mejor desglosado.
