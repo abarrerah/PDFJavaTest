@@ -5,9 +5,7 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class PathUtils {
-
     private static final String KEY = "VIAFIRMA_PATH";
-    private static final Logger logger = Logger.getLogger(PathUtils.class.getName());
 
     public String getFolderPath() throws Exception {
         Scanner sc = new Scanner(System.in);
