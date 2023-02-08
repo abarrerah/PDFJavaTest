@@ -1,8 +1,8 @@
-package com.testpdf.Service;
+package com.testpdf.service;
 
 import com.testpdf.App;
-import com.testpdf.Utils.PDFUtils;
-import com.testpdf.Utils.PathUtils;
+import com.testpdf.utils.PDFUtils;
+import com.testpdf.utils.PathUtils;
 import com.testpdf.properties.FileProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class PDFService {
 
-    Logger logger = Logger.getLogger(PDFService.class.getName());
+    private static final Logger logger = Logger.getLogger(PDFService.class.getName());
 
     public void blankPage() throws Exception {
         FileProperties fileProperties = new FileProperties();

@@ -1,4 +1,4 @@
-package com.testpdf.Utils;
+package com.testpdf.utils;
 
 import com.testpdf.App;
 import org.apache.pdfbox.Loader;
@@ -8,26 +8,33 @@ import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class PDFUtils {
-    Logger logger = Logger.getLogger(App.class.getName());
+    private static final Logger logger = Logger.getLogger(PDFUtils.class.getName());
     public List<File> listFileForFolder(String folderPath) throws Exception {
         File folder = new File(folderPath);
-        File [] listOfFiles = folder.listFiles();
-        List<File> files = new ArrayList<>();
-
-        for (File file : listOfFiles) {
-            if (file.isFile()) {
-                files.add(file);
+        FileFilter pdfFileFilter = file -> {
+            if (file.getName().endsWith(".pdf")) {
+                return true;
             }
+            return false;
+        };
+        File [] listOfFiles = folder.listFiles(pdfFileFilter);
+        if (listOfFiles.length == 0) {
+            String name = new Object(){}.getClass().getEnclosingMethod().getName();
+            logger.logp(Level.WARNING, App.class.getName(), name, "Empty folder/no pdf files inside.");
         }
 
-        return files;
+        return new ArrayList<>(Arrays.asList(listOfFiles));
     }
 
    public List<PDDocument> checkPDFOnList(List<File> files)  {
@@ -61,14 +68,14 @@ public class PDFUtils {
    }
 
    public void addBlankPage(List<PDDocument> files) throws IOException {
-        List<PDDocument> addedPagesPdfs = new ArrayList<PDDocument>();
         for(PDDocument file : files) {
             PDPage page = new PDPage();
             file.addPage(page);
             PDDocumentInformation info = file.getDocumentInformation();
-            file.save("G:\\PDFJavaTest\\example_folder\\" + info.getTitle() + ".pdf");
-            addedPagesPdfs.add(file);
-
+            String checkPdfName = new File("").getAbsolutePath() + info.getTitle() + ".pdf";
+            File checkPdfExist = new File(checkPdfName);
+            String newPdfName = (checkPdfExist.exists() && !checkPdfExist.isDirectory()) ? new File("").getAbsolutePath() + info.getTitle() + "_" + UUID.randomUUID() + ".pdf" : new File("").getAbsolutePath() + info.getTitle() + ".pdf";
+            file.save(newPdfName);
         }
    }
  }
